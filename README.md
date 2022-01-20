@@ -9,6 +9,8 @@ https://github.com/NVIDIA/jetson-gpio.git
 
 `git clone https://github.com/NVIDIA/jetson-gpio.git` (clone the repo to be able to copy the shield rules)
 
+You can find examples of gpio uses in samples directory (in repo).
+
 ## Find the relevant ids to build the image
 
 `id $USER`
