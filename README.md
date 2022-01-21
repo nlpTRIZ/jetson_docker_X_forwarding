@@ -1,7 +1,8 @@
 # Control GPIO pins and audio devices using Jetson Nano
-Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone for Jetson Nano.
+Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone for Jetson Nano.\
+Feel free to modify requirements.txt to install more libraries.
 
-**Pre-installed libraries:**\
+**Installed libraries:**\
 TensorFlow 1.15.5 \
 PyTorch v1.9.0 \
 torchvision v0.10.0\
