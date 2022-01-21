@@ -1,5 +1,5 @@
 # Control GPIO pins and audio devices using Jetson Nano
-Purpose : build a reusable image using docker for Jetson Nano.
+Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone for Jetson Nano.
 
 **Pre-installed libraries:**\
 TensorFlow 1.15.5 \
