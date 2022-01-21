@@ -46,4 +46,5 @@ for example `id jetson0` and get uid, gid and the group corresponding to gpio (g
 
 `sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb -v $(pwd):/app -v /sys:/sys --group-add 999 jetson_gpio:latest`
 
--v $(pwd):/app means that the user working directory (where the user uses this command) will be available in /app directory inside the container. Files in this directory are shared between the host and the container.
+-v $(pwd):/app means that the user working directory (where the user uses this command) will be available in /app directory inside the container. Files in this directory are shared between the host and the container.\
+Use Ctrl+D to exit container.
