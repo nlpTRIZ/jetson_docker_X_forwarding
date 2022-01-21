@@ -1,7 +1,7 @@
 # Control GPIO pins and audio devices using Jetson Nano
 Purpose : build a reusable image using docker for Jetson Nano.
 
-Preinstalled libraries: \
+**Pre-installed libraries:**\
 TensorFlow 1.15.5 \
 PyTorch v1.9.0 \
 torchvision v0.10.0\
@@ -21,8 +21,8 @@ simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0\
 
-## Prepare and build image with preinstalled libraries
-### 1) Follow INSTALLATION guidelines to make the gpio pins available and controlable
+## Prepare and build image
+### 1) Follow INSTALLATION guidelines of the following repo to make the gpio pins available and controlable
 
 Be sure to follow all INSTALLATION guidelines of this repo https://github.com/NVIDIA/jetson-gpio.git, otherwise you will have a permission error when using the gpio pins.
 
@@ -41,8 +41,8 @@ for example `id jetson0` and get uid, gid and the group corresponding to gpio (g
 `sudo docker build -t jetson_gpio --build-arg uid=1000 --build-arg gid=1000 --build-arg gid_gpio=999 .`
 
 ## Create a container from image to execute codes
-## Run Container from image (replace number by your gid_gpio)
+**Replace number by your gid_gpio:**
 
 `sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb -v $(pwd):/app -v /sys:/sys --group-add 999 jetson_gpio:latest`
 
--v $(pwd):/app means that the user working directory (where the user uses this command) will be available in /app directory inside the container. Files in this dir are shared between the host and the container.
+-v $(pwd):/app means that the user working directory (where the user uses this command) will be available in /app directory inside the container. Files in this directory are shared between the host and the container.
