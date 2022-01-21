@@ -1,4 +1,4 @@
-# Control GPIO pins and audio devices using Jetson Nano
+# Docker image to control GPIO pins + audio devices using machine learning libraries on Jetson Nano
 Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone for Jetson Nano.\
 Feel free to modify requirements.txt to install more libraries.
 
