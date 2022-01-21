@@ -27,7 +27,7 @@ transformers 4.15.0
 
 Be sure to follow all INSTALLATION guidelines of this repo https://github.com/NVIDIA/jetson-gpio.git, otherwise you will have a permission error when using the gpio pins.
 
-`git clone https://github.com/NVIDIA/jetson-gpio.git` (clone the repo to be able to copy the shield rules)
+`git clone https://github.com/NVIDIA/jetson-gpio.git` (clone the repo to be able to copy the rules)
 
 You can find examples of gpio uses in samples directory (in repo).
 
