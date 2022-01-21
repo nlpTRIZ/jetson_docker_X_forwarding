@@ -1,19 +1,25 @@
 # Control GPIO pins and audio devices using Jetson Nano
 Purpose : build a reusable image using docker for Jetson Nano.
-Preinstalled libraries:
-TensorFlow 1.15.5
-PyTorch v1.9.0
-torchvision v0.10.0
-torchaudio v0.9.0
-onnx 1.8.0
-CuPy 9.2.0
-numpy 1.19.5
-numba 0.53.1
-OpenCV 4.5.0 (with CUDA)
-pandas 1.1.5
-scipy 1.5.4
-scikit-learn 0.23.2
-JupyterLab 2.2.9
+
+Preinstalled libraries: \
+TensorFlow 1.15.5 \
+PyTorch v1.9.0 \
+torchvision v0.10.0\
+torchaudio v0.9.0 \
+onnx 1.8.0 \
+CuPy 9.2.0\
+numpy 1.19.5\
+numba 0.53.1\
+OpenCV 4.5.0 (with CUDA)\
+pandas 1.1.5\
+scipy 1.5.4\
+scikit-learn 0.23.2\
+JupyterLab 2.2.9\
+Jetson.GPIO 2.0.17\
+pyaudio 0.2.11\
+simpleaudio 1.0.4\
+librosa 0.8.1\
+transformers 4.15.0\
 
 ## Prepare and build image with preinstalled libraries
 ### 1) Follow INSTALLATION guidelines to make the gpio pins available and controlable
