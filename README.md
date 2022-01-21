@@ -42,7 +42,7 @@ for example `id jetson0` and get uid, gid and the group corresponding to gpio (g
 `sudo docker build -t jetson_gpio --build-arg uid=1000 --build-arg gid=1000 --build-arg gid_gpio=999 .`
 
 ## Create a container from image to execute codes
-**Replace number by your gid_gpio:**
+**Replace 999 by your gid_gpio:**
 
 `sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb -v $(pwd):/app -v /sys:/sys --group-add 999 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix jetson_gpio:latest`
 
