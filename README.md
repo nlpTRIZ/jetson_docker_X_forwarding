@@ -47,4 +47,5 @@ for example `id jetson0` and get uid, gid and the group corresponding to gpio (g
 `sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb -v $(pwd):/app -v /sys:/sys --group-add 999 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix jetson_gpio:latest`
 
 -v $(pwd):/app means that the user working directory (where the user uses this command) will be available in /app directory inside the container. Files in this directory are shared between the host and the container.\
+This container is supposedly able to run without sudo (but user needs to be added to docker group).\
 Use Ctrl+D to exit container.
