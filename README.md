@@ -50,7 +50,7 @@ sudo usermod -a -G docker $USER
 docker build -t jetson_gpio .
 # Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.
 # Lancement container
-docker run --rm \
+'''docker run --rm \
 	   -it \
 	   --runtime=nvidia \
            --net host \
@@ -65,4 +65,4 @@ docker run --rm \
            -v /tmp/argus_socket:/tmp/argus_socket \
            -v "$HOME/.Xauthority:/root/.Xauthority:rw" \
 	   -v $(pwd):/app \
-           jetson_gpio:latest
+           jetson_gpio:latest'''
