@@ -26,7 +26,7 @@ transformers 4.15.0
 ### 1) Flash jetson with Jetpack 4.6, no upgrade
 ### 2) Connect sensors before boot
 ### 3) Clone official repo for gpio pins control
-`cd Documents`\
+`cd Desktop`\
 `git clone https://github.com/NVIDIA/jetson-gpio.git`\
 ### 4) Clone code for container creation
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
