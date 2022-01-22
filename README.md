@@ -22,13 +22,13 @@ simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0
 
-**Installation**
-Flash jetson with Jetpack 4.6, no upgrade\
-Connect sensors before boot\
+## Installation
+# 1) Flash jetson with Jetpack 4.6, no upgrade
+# 2) Connect sensors before boot
+# 3) Clone official repo for gpio pins control
 `cd Documents`
-Clone official repo for gpio pins control \
 `git clone https://github.com/NVIDIA/jetson-gpio.git`\
-Clone code for container creation\
+# 4) Clone code for container creation\
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
 `sudo apt update`\
 `sudo apt install python3-pip`\
