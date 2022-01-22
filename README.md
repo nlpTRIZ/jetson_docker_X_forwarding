@@ -47,31 +47,18 @@ Des modules pythons peuvent être ajoutés dans requirements.txt pour les instal
 `sudo docker build --build-arg cookie="$(xauth list :${DISPLAY##*:})" -t jetson_c .`
 ### 11) Prepare run command
 `echo "alias drun='sudo docker run 
-
---rm -it --runtime=nvidia 
-
---net host 
-
---gpus all 
-
---device /dev/snd 
-
---device /dev/bus/usb 
-
---privileged 
-
---cap-add SYS_PTRACE 
-
--e DISPLAY=$DISPLAY 
-
--v /sys:/sys 
-
--v /tmp/.X11-unix/:/tmp/.X11-unix/ 
-
--v /tmp/argus_socket:/tmp/argus_socket 
-
--v $(pwd):/app 
-
+--rm -it --runtime=nvidia \
+--net host \
+--gpus all \
+--device /dev/snd \
+--device /dev/bus/usb \
+--privileged \
+--cap-add SYS_PTRACE \
+-e DISPLAY=$DISPLAY \
+-v /sys:/sys \
+-v /tmp/.X11-unix/:/tmp/.X11-unix/ \
+-v /tmp/argus_socket:/tmp/argus_socket \
+-v $(pwd):/app \
 jetson_c:latest'" >> ~/.bashrc`
 
 ## Run
