@@ -58,9 +58,8 @@ Lancement container\
 	   --privileged 
 	   --cap-add SYS_PTRACE 
 	   -e DISPLAY=$DISPLAY 
-           -v /sys:/sys 
-           -v /tmp/.X11-unix/:/tmp/.X11-unix 
-           -v /tmp/argus_socket:/tmp/argus_socket 
-           -v "$HOME/.Xauthority:/root/.Xauthority:rw" 
+           -v /sys
+           -v /tmp/.X11-unix/
+           -v /tmp/argus_socket
 	   -v $(pwd):/app 
            jetson_gpio:latest`
