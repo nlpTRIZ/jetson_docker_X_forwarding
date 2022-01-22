@@ -3,6 +3,7 @@ FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 WORKDIR /app
 COPY ./requirements.txt .
 
+RUN apt-get update && apt-get -y install xauth
 RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
     && sh install_rust.sh -y \
     && . $HOME/.cargo/env \
