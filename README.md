@@ -22,10 +22,11 @@ simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0
 
-# Flash jetson with Jetpack 4.6
-# brancher capteurs avant boot
+**Installation**
+Flash jetson with Jetpack 4.6, no upgrade\
+Connect sensors before boot\
 cd Documents
-# clone code officiel pour le contrôle des pins
+Clone official repo for gpio pins control \
 git clone https://github.com/NVIDIA/jetson-gpio.git
 # clone mon code pour la création d'environnements consistants
 git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git
