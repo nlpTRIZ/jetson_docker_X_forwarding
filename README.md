@@ -45,6 +45,7 @@ transformers 4.15.0
 ### 11) Build image
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
+`cd container_jetson_audio_gpio`\
 `docker build -t jetson_gpio .`
 
 ## Use
