@@ -12,16 +12,18 @@ sudo pip3 install Jetson.GPIO
 # création groupe gpio
 sudo groupadd -f -r gpio
 # ajout utilisateur dans le groupe gpio
-sudo usermod -a -G gpio jetson0
+sudo usermod -a -G gpio $USER
 # on copie le fichier donnant les permissions d'accès dans les règles systèmes
 sudo cp jetson-gpio/lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 # on supprime le code pour le contrôle d'accès car plus besoin
 rm -rf jetson-gpio
 # on met à jour les permissions système
 sudo udevadm control --reload-rules && sudo udevadm trigger
+# ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo
+sudo usermod -a -G docker $USER
 # on crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile
 # des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)
-sudo docker build -t jetson_gpio .
+docker build -t jetson_gpio .
 # Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.
 # Lancement container
 docker run --rm \
