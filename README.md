@@ -32,23 +32,26 @@ transformers 4.15.0
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
 `sudo apt update`\
 `sudo apt install python3-pip`\
-Installation module python pour le contrôle des pins\
+### 5) Installation module python pour le contrôle des pins\
 `sudo pip3 install Jetson.GPIO`\
-Création groupe gpio\
+### 6) Création groupe gpio\
 `sudo groupadd -f -r gpio`\
-Ajout utilisateur dans le groupe gpio\
+### 7) Ajout utilisateur dans le groupe gpio\
 `sudo usermod -a -G gpio $USER`\
-On copie le fichier donnant les permissions d'accès dans les règles systèmes\
+### 8) On copie le fichier donnant les permissions d'accès dans les règles systèmes\
 `sudo cp jetson-gpio/lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/`\
-On supprime le code pour le contrôle d'accès car plus besoin\
+### 9) On supprime le code pour le contrôle d'accès car plus besoin\
 `rm -rf jetson-gpio`\
-On met à jour les permissions système\
+### 10) On met à jour les permissions système\
 `sudo udevadm control --reload-rules && sudo udevadm trigger`\
-Ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo\
+### 11) Ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo\
 `sudo usermod -a -G docker $USER`\
+### 12) Build image
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
 `docker build -t jetson_gpio .`\
+
+## Use
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
 Lancement container\
 `docker run --rm -it --runtime=nvidia --net host  --gpus all 
