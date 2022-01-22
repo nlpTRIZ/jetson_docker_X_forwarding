@@ -33,12 +33,12 @@ docker run --rm \
            --gpus all \
            --device /dev/snd \
            --device /dev/bus/usb \
-           -v $(pwd):/app \
+	   --privileged \
+	   --cap-add SYS_PTRACE \
+	   -e DISPLAY=$DISPLAY \
            -v /sys:/sys \
-           -e DISPLAY=$DISPLAY \
            -v /tmp/.X11-unix/:/tmp/.X11-unix \
            -v /tmp/argus_socket:/tmp/argus_socket \
            -v "$HOME/.Xauthority:/root/.Xauthority:rw" \
-           --privileged
-           --cap-add SYS_PTRACE \
+	   -v $(pwd):/app \
            jetson_gpio:latest
