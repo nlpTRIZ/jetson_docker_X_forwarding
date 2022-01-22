@@ -27,29 +27,29 @@ transformers 4.15.0
 ### 2) Connect sensors before boot
 ### 3) Clone official repo for gpio pins control
 `cd Desktop`\
-`git clone https://github.com/NVIDIA/jetson-gpio.git`\
+`git clone https://github.com/NVIDIA/jetson-gpio.git`
 ### 4) Clone code for container creation
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
 `sudo apt update`\
-`sudo apt install python3-pip`\
+`sudo apt install python3-pip`
 ### 5) Installation module python pour le contrôle des pins
-`sudo pip3 install Jetson.GPIO`\
+`sudo pip3 install Jetson.GPIO`
 ### 6) Création groupe gpio
-`sudo groupadd -f -r gpio`\
+`sudo groupadd -f -r gpio`
 ### 7) Ajout utilisateur dans le groupe gpio
-`sudo usermod -a -G gpio $USER`\
+`sudo usermod -a -G gpio $USER`
 ### 8) On copie le fichier donnant les permissions d'accès dans les règles systèmes
-`sudo cp jetson-gpio/lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/`\
+`sudo cp jetson-gpio/lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/`
 ### 9) On supprime le code pour le contrôle d'accès car plus besoin
-`rm -rf jetson-gpio`\
+`rm -rf jetson-gpio`
 ### 10) On met à jour les permissions système
-`sudo udevadm control --reload-rules && sudo udevadm trigger`\
+`sudo udevadm control --reload-rules && sudo udevadm trigger`
 ### 11) Ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo
-`sudo usermod -a -G docker $USER`\
+`sudo usermod -a -G docker $USER`
 ### 12) Build image
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
-`docker build -t jetson_gpio .`\
+`docker build -t jetson_gpio .`
 
 ## Use
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
