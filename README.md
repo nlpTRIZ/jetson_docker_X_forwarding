@@ -3,19 +3,19 @@ Purpose : build a reusable image using docker to control GPIO pins, speakers and
 Feel free to modify requirements.txt to install more libraries.
 
 **Installed libraries:**\
-TensorFlow 1.15.5 \
-PyTorch v1.9.0 \
-torchvision v0.10.0\
-torchaudio v0.9.0 \
-onnx 1.8.0 \
-CuPy 9.2.0\
-numpy 1.19.5\
-numba 0.53.1\
-OpenCV 4.5.0 (with CUDA)\
-pandas 1.1.5\
-scipy 1.5.4\
-scikit-learn 0.23.2\
-JupyterLab 2.2.9\
+TensorFlow 1.15.5 (base image)\
+PyTorch v1.9.0 (base image) \
+torchvision v0.10.0 (base image)\
+torchaudio v0.9.0 (base image) \
+onnx 1.8.0 (base image) \
+CuPy 9.2.0 (base image)\
+numpy 1.19.5 (base image)\
+numba 0.53.1 (base image)\
+OpenCV 4.5.0 (base image)\
+pandas 1.1.5 (base image)\
+scipy 1.5.4 (base image)\
+scikit-learn 0.23.2 (base image)\
+JupyterLab 2.2.9 (base image)\
 Jetson.GPIO 2.0.17\
 pyaudio 0.2.11\
 simpleaudio 1.0.4\
