@@ -41,7 +41,8 @@ transformers 4.15.0
 ### 9) On met à jour les permissions système
 `sudo udevadm control --reload-rules && sudo udevadm trigger`
 ### 10) Ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo
-`sudo usermod -a -G docker $USER`
+`sudo usermod -a -G docker $USER`\
+`logout`
 ### 11) Build image
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
