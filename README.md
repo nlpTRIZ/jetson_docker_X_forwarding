@@ -57,7 +57,7 @@ Lancement container\
            --device /dev/bus/usb 
 	   --privileged 
 	   --cap-add SYS_PTRACE 
-	   -e DISPLAY=$DISPLAY 
+	   -e DISPLAY
            -v /sys
            -v /tmp/.X11-unix/
            -v /tmp/argus_socket
