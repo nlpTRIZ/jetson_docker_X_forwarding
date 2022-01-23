@@ -45,7 +45,7 @@ transformers 4.15.0
 `sudo reboot`
 ### 11) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
-Python modules can be added in requirements.txt to add them in the image (check that they are not already there).\
+Python modules can be added in requirements.txt to install them (check that they are not already there).\
 `cd container_jetson_audio_gpio`\
 `docker build -t name_image .`
 ### 12) Load run function
