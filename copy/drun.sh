@@ -3,7 +3,7 @@ drun () {
 	
 	# Stop if no argument for image name given
 	if [[ $# -eq 0 ]] ; then
-	    echo 'No image name given. Use "docker images" to find the right one.'
+	    echo 'No image name provided. Use "docker images" to find the right one.'
 	    return
 	fi
 	
