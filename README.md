@@ -48,7 +48,7 @@ Des modules pythons peuvent être ajoutés dans requirements.txt pour les instal
 `cd container_jetson_audio_gpio`\
 `docker build -t name_image .`
 ### 12) Load run function
-This will permanently set the launching command with proper options:\
+This will permanently set the containers starting command with proper options:\
 `. install.sh`\
 To temporarly set the command:\
 `. copy/drun.sh`
