@@ -42,12 +42,17 @@ transformers 4.15.0
 `sudo usermod -a -G docker jetson0`\
 ### 10) Reboot
 `sudo reboot`
-### 11) Build image
+### 11) Build image (replace name_image with a proper name)
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
 `cd container_jetson_audio_gpio`\
-`docker build -t jetson_c .`
+`docker build -t name_image .`
+### 12) Load run function
+This will permanently set the launching command:
+`. install.sh`
+To temporarly set the command:
+'. copy/drun.sh'
 ## Run
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
 Lancement container\
-`bash drun.sh`
+`drun name_image`
