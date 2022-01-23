@@ -35,7 +35,7 @@ drun () {
 	AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
 	
 	# Create the new X Authority file
-	xauth -f display/Xauthority add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
+	xauth -f display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
 	
 	# Proxy with the :0 DISPLAY
 	sudo rm -rf display/socket/X${CONTAINER_DISPLAY} || true
@@ -60,7 +60,7 @@ drun () {
 	  --cap-add SYS_PTRACE \
 	  -v /sys:/sys \
 	  -v ${PWD}/display/socket:/tmp/.X11-unix \
-	  -v ${PWD}/display/Xauthority:/tmp/.Xauthority \
+	  -v ${PWD}/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
 	  -v /tmp/argus_socket:/tmp/argus_socket \
 	  -v ${PWD}:/app \
 	  -p $port:8888 \
