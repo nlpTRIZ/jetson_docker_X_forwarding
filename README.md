@@ -40,16 +40,15 @@ transformers 4.15.0
 `rm -rf jetson-gpio`
 ### 9) On met à jour les permissions système
 `sudo udevadm control --reload-rules && sudo udevadm trigger`
-### 10) Ajout utilisateur dans le groupe docker pour pouvoir lancer sans sudo
-`sudo usermod -a -G docker $USER`\
-`logout`
-### 11) Build image
+### 10) Build image
 On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
 Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
 `cd container_jetson_audio_gpio`\
 `sudo docker build --build-arg cookie="$(xauth list :${DISPLAY##*:})" -t jetson_c .`
+### 11) Prepare run command
+`echo "alias drun='sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb --privileged --cap-add SYS_PTRACE -e DISPLAY=$DISPLAY -v /sys:/sys -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /tmp/argus_socket:/tmp/argus_socket -v $(pwd):/app jetson_c:latest'" >> ~/.bashrc`
 
-## Use
+## Run
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
 Lancement container\
-`sudo docker run --rm -it --runtime=nvidia --net host --gpus all --device /dev/snd --device /dev/bus/usb --privileged --cap-add SYS_PTRACE -e DISPLAY=$DISPLAY -v /sys:/sys -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /tmp/argus_socket:/tmp/argus_socket -v $(pwd):/app jetson_c:latest`
+`drun`
