@@ -9,7 +9,7 @@ import pycuda.autoinit
 import numpy as np
 import tensorrt as trt
 
-task='no TensorRT'
+task='TensorRT'
 
 if task=='no TensorRT':
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
@@ -70,7 +70,6 @@ elif task=='TensorRT':
             network.mark_output(last_layer.get_output(0))
 
         config = builder.create_builder_config()
-        config.max_workspace_size = 1 << 28
         config.set_flag(trt.BuilderFlag.FP16)
 
         # generate TensorRT engine optimized for the target platform
