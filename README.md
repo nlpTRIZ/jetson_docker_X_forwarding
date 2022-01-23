@@ -45,7 +45,7 @@ transformers 4.15.0
 ### 11) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
 Python modules can be added in requirements.txt to install them (check that they are not already there).\
-`cd container_jetson_audio_gpio`\
+`cd jetson_docker_X_forwarding`\
 `docker build -t name_image .`
 ### 12) Load run function
 This will permanently set the containers starting command (`drun`) with proper options:\
