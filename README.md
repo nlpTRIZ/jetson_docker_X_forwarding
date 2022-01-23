@@ -42,7 +42,7 @@ transformers 4.15.0
 `sudo usermod -a -G docker $USER`
 ### 10) Install socat for socket management
 `sudo apt update`\
-`sudo apt install socat`\
+`sudo apt install socat`
 ### 11) Reboot
 `sudo reboot`
 ### 12) Build image (replace name_image with a proper name)
