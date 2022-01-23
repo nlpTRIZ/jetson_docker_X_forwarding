@@ -21,7 +21,9 @@ drun () {
 			quit=1
 		else
 			PORT=`expr $PORT + 1`
+			echo "Done"
 			CONTAINER_DISPLAY=`expr $CONTAINER_DISPLAY + 1`
+			echo "did"
 		fi
 	done
 	
