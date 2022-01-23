@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Prepare target env
 CONTAINER_DISPLAY="0"
 CONTAINER_HOSTNAME="root"
@@ -13,11 +11,14 @@ DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
 
 # Extract current authentication cookie
 AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
+echo $AUTH_COOKIE
 
 # Create the new X Authority file
 xauth -f display/Xauthority add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
 
 # Proxy with the :0 DISPLAY
+sudo rm -rf display/socket
+mkdir -p display/socket
 socat UNIX-LISTEN:display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
 
 # Launch the container
