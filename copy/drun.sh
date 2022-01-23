@@ -66,7 +66,7 @@ drun () {
 	  -v ${PWD}/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
 	  -v /tmp/argus_socket:/tmp/argus_socket \
 	  -v ${PWD}:/app \
-	  -p $port:8888 \
+	  -p $PORT:8888 \
 	  --privileged \
 	  --hostname ${CONTAINER_HOSTNAME} \
 	  $1
