@@ -26,7 +26,7 @@ drun () {
 	
 	# Create a directory for the socket
 	mkdir -p /tmp/display/socket
-	touch /tmp/display/Xauthority
+	touch /tmp/display/Xauthority${CONTAINER_DISPLAY}
 	
 	# Get the DISPLAY slot
 	DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
