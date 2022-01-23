@@ -14,16 +14,13 @@ drun () {
 	# Find open port for jupyterlab
 	PORT=8888
 	quit=0
-	echo "here"
 	while [ "$quit" -ne 1 ]; do
 		netstat -a | grep $PORT >> /dev/null
 		if [ $? -gt 0 ]; then
 			quit=1
 		else
 			PORT=`expr $PORT + 1`
-			echo "Done"
 			CONTAINER_DISPLAY=`expr $CONTAINER_DISPLAY + 1`
-			echo "did"
 		fi
 	done
 	
