@@ -25,8 +25,8 @@ drun () {
 	done
 	
 	# Create a directory for the socket
-	mkdir -p display/socket
-	touch display/Xauthority
+	mkdir -p /tmp/display/socket
+	touch /tmp/display/Xauthority
 	
 	# Get the DISPLAY slot
 	DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
@@ -35,18 +35,18 @@ drun () {
 	AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
 	
 	# Create the new X Authority file
-	xauth -f display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
+	xauth -f /tmp/display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
 	
 	# Proxy with the :0 DISPLAY
-	sudo rm -rf display/socket/X${CONTAINER_DISPLAY} || true
-	PROCESSES=$(ps aux | grep display/socket/X${CONTAINER_DISPLAY} | head -n -1 | awk '{print $2}')
+	sudo rm -rf /tmp/display/socket/X${CONTAINER_DISPLAY} || true
+	PROCESSES=$(ps aux | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | head -n -1 | awk '{print $2}')
 	if [ ! -z "$PROCESSES" ]
 	then
 		echo "Cleaning old sockets..."
 		sudo kill ${PROCESSES}
 	fi
 	echo "Creating new socket..."
-	socat UNIX-LISTEN:display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
+	socat UNIX-LISTEN:/tmp/display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
 	
 	# Launch the container
 	docker run -it --rm \
@@ -59,8 +59,8 @@ drun () {
 	  --device /dev/bus/usb \
 	  --cap-add SYS_PTRACE \
 	  -v /sys:/sys \
-	  -v ${PWD}/display/socket:/tmp/.X11-unix \
-	  -v ${PWD}/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
+	  -v /tmp/display/socket:/tmp/.X11-unix \
+	  -v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
 	  -v /tmp/argus_socket:/tmp/argus_socket \
 	  -v ${PWD}:/app \
 	  -p $PORT:8888 \
