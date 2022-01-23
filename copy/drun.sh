@@ -8,11 +8,11 @@ drun () {
 	fi
 	
 	# Prepare target env
-	CONTAINER_DISPLAY=$(( $(ps aux | grep -c "docker run") - 1))
+	CONTAINER_DISPLAY=0
 	CONTAINER_HOSTNAME="root"
 	
 	# Find open port for jupyterlab
-	port=8888
+	PORT=8888
 	quit=0
 	
 	while [ "$quit" -ne 1 ]; do
@@ -20,7 +20,8 @@ drun () {
 		if [ $? -gt 0 ]; then
 			quit=1
 		else
-			port=`expr $port + 1`
+			PORT=`expr $PORT + 1`
+			CONTAINER_DISPLAY=`expr $CONTAINER_DISPLAY + 1`
 		fi
 	done
 	
@@ -54,7 +55,7 @@ drun () {
 	  --gpus all \
 	  -e DISPLAY=:${CONTAINER_DISPLAY} \
 	  -e XAUTHORITY=/tmp/.Xauthority \
-	  -e JPORT=${port} \
+	  -e JPORT=${PORT} \
 	  --device /dev/snd \
 	  --device /dev/bus/usb \
 	  --cap-add SYS_PTRACE \
