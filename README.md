@@ -22,7 +22,7 @@ simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0
 
-## Installation
+# Installation
 ### 1) Flash jetson with Jetpack 4.6, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
 ### 2) Connect sensors before boot
 ### 3) Clone official repositery for gpio pins control
@@ -54,7 +54,7 @@ To permanently set the containers starting command (`drun`) with proper options:
 `. install.sh`\
 To temporarly set the command:\
 `. copy/drun.sh`
-## Run
+# Run
 Once an image is built, no need to rebuid it every time, just start a container.\
 Start container (don't forget to connect with -X option: ssh -X user@ip)\
 `drun name_image`
