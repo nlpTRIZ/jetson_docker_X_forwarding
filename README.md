@@ -55,6 +55,6 @@ To permanently set the containers starting command (`drun`) with proper options:
 To temporarly set the command:\
 `. copy/drun.sh`
 # Run
-Once an image is built, no need to rebuid it every time, just start a container.\
-Start container (don't forget to connect with -X option: ssh -X user@ip)\
+Once an image is built, no need to rebuid it every time, just start a container:\
+(don't forget to connect with -X option: ssh -X user@ip)\
 `drun name_image`
