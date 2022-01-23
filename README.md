@@ -48,7 +48,7 @@ Python modules can be added in requirements.txt to install them (check that they
 `cd Desktop/jetson_docker_X_forwarding`\
 `docker build -t name_image .`
 ### 12) Load run function
-This will permanently set the containers starting command (`drun`) with proper options:\
+To permanently set the containers starting command (`drun`) with proper options:\
 `. install.sh`\
 To temporarly set the command:\
 `. copy/drun.sh`
