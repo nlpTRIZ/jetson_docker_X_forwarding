@@ -39,7 +39,7 @@ transformers 4.15.0
 ### 8) Remove GPIO repo
 `rm -rf jetson-gpio`
 ### 9) Add user to docker group
-`sudo usermod -a -G docker jetson0`\
+`sudo usermod -a -G docker jetson0`
 ### 10) Reboot
 `sudo reboot`
 ### 11) Build image (replace name_image with a proper name)
