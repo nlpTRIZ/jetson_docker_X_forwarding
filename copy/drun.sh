@@ -1,4 +1,4 @@
-# Bash function which will be written in ~/.bashrc file.
+# Bash function enabling access to sensors and X forwarding when starting containers
 drun () {
 	
 	# Stop if no argument for image name given
