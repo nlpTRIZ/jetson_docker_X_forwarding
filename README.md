@@ -1,5 +1,5 @@
 # Build docker image on Jetson Nano: GPIO, cam, ML
-Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone for Jetson Nano.\
+Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone with ML libraries for Jetson Nano.\
 Feel free to modify requirements.txt to install more libraries.
 
 **Installed libraries:**\
@@ -30,21 +30,21 @@ transformers 4.15.0
 `git clone https://github.com/NVIDIA/jetson-gpio.git`
 ### 4) Clone code for container creation
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
-### 5) Création groupe gpio
+### 5) Create gpio group
 `sudo groupadd -f -r gpio`
-### 6) Ajout utilisateur dans le groupe gpio
+### 6) Add user to gpio group
 `sudo usermod -a -G gpio $USER`
-### 7) On copie le fichier donnant les permissions d'accès dans les règles systèmes
+### 7) Copy the permissions file
 `sudo cp jetson-gpio/lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/`
-### 8) On supprime le code pour le contrôle d'accès car plus besoin
+### 8) Remove GPIO repo
 `rm -rf jetson-gpio`
 ### 9) Add user to docker group
 `sudo usermod -a -G docker jetson0`\
 ### 10) Reboot
 `sudo reboot`
 ### 11) Build image (replace name_image with a proper name)
-On crée l'image de l'environnement souhaité à partir de l'image officielle de nvidia dans laquelle on exécute le contenu du fichier Dockerfile\
-Des modules pythons peuvent être ajoutés dans requirements.txt pour les installer dans l'image (vérifier qu'ils ne sont pas déjà là de base)\
+Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
+Python modules can be added in requirements.txt to add them in the image (check that they are not already there).\
 `cd container_jetson_audio_gpio`\
 `docker build -t name_image .`
 ### 12) Load run function
@@ -53,6 +53,6 @@ This will permanently set the containers starting command (`drun`) with proper o
 To temporarly set the command:\
 `. copy/drun.sh`
 ## Run
-Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
-Lancement container\
+Once an image is built, no need to rebuid it every time, just start a container.\
+Start container:\
 `drun name_image`
