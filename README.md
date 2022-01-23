@@ -40,7 +40,9 @@ transformers 4.15.0
 `rm -rf jetson-gpio`
 ### 9) Add user to docker group
 `sudo usermod -a -G docker $USER`
-### 10) Reboot
+### 10) Install socat and reboot
+`sudo apt update`
+`sudo apt install socat`
 `sudo reboot`
 ### 11) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
