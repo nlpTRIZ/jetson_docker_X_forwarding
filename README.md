@@ -1,5 +1,5 @@
-# Docker with X forwarding for Jetson Nano: 
-# Image Processing, Sound Processing, ML, GPIO control
+# Docker with X forwarding for Jetson Nano: \
+Image Processing, Sound Processing, ML, GPIO control
 Purpose : build a reusable image using docker to control GPIO pins, speakers and microphone with ML libraries for Jetson Nano.\
 Feel free to modify requirements.txt to install more libraries.
 
