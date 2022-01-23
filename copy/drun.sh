@@ -16,7 +16,7 @@ drun () {
 	quit=0
 	echo "here"
 	while [ "$quit" -ne 1 ]; do
-		netstat -a | grep $port >> /dev/null
+		netstat -a | grep $PORT >> /dev/null
 		if [ $? -gt 0 ]; then
 			quit=1
 		else
