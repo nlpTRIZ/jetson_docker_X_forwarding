@@ -23,7 +23,7 @@ librosa 0.8.1\
 transformers 4.15.0
 
 ## Installation
-### 1) Flash jetson with Jetpack 4.6, no upgrade (headless is better https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/)
+### 1) Flash jetson with Jetpack 4.6, no upgrade (headless is better) https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
 ### 2) Connect sensors before boot
 ### 3) Clone official repo for gpio pins control
 `cd Desktop`\
