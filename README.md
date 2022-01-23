@@ -49,9 +49,9 @@ Des modules pythons peuvent être ajoutés dans requirements.txt pour les instal
 `docker build -t name_image .`
 ### 12) Load run function
 This will permanently set the launching command:
-`. install.sh`
-To temporarly set the command:
-'. copy/drun.sh'
+`. install.sh`\
+To temporarly set the command:\
+'. copy/drun.sh`
 ## Run
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
 Lancement container\
