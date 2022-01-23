@@ -51,7 +51,7 @@ Des modules pythons peuvent être ajoutés dans requirements.txt pour les instal
 This will permanently set the launching command:
 `. install.sh`\
 To temporarly set the command:\
-'. copy/drun.sh`
+`. copy/drun.sh`
 ## Run
 Une fois l'image créée, plus besoin de la recréer, lancer un container à partir de l'image suffit.\
 Lancement container\
