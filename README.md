@@ -25,10 +25,10 @@ transformers 4.15.0
 ## Installation
 ### 1) Flash jetson with Jetpack 4.6, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
 ### 2) Connect sensors before boot
-### 3) Clone official repo for gpio pins control
+### 3) Clone official repositery for gpio pins control
 `cd Desktop`\
 `git clone https://github.com/NVIDIA/jetson-gpio.git`
-### 4) Clone code for container creation
+### 4) Clone this repositery
 `git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
 ### 5) Create gpio group
 `sudo groupadd -f -r gpio`
