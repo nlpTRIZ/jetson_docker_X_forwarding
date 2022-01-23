@@ -14,7 +14,7 @@ drun () {
 	# Find open port for jupyterlab
 	PORT=8888
 	quit=0
-	
+	echo "here"
 	while [ "$quit" -ne 1 ]; do
 		netstat -a | grep $port >> /dev/null
 		if [ $? -gt 0 ]; then
