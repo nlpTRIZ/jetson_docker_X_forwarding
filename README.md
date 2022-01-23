@@ -29,7 +29,7 @@ transformers 4.15.0
 `cd Desktop`\
 `git clone https://github.com/NVIDIA/jetson-gpio.git`
 ### 4) Clone this repositery
-`git clone https://github.com/nlpTRIZ/container_jetson_audio_gpio.git`\
+`git clone https://github.com/nlpTRIZ/jetson_docker_X_forwarding`\
 ### 5) Create gpio group
 `sudo groupadd -f -r gpio`
 ### 6) Add user to gpio group
