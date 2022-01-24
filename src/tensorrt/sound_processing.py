@@ -10,6 +10,7 @@ from torch2trt import TRTModule
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
 task='no TensorRT'
+dynamic = False
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 FILENAME = '../../data/Open_test.wav'
@@ -35,9 +36,12 @@ if task=='no TensorRT':
 
     # Saving model
     # indicates that the dimension 1 of input can vary
-    dynamic_axes = {'input': {1: 'len_sound'}}
+    if dynamic:
+        dynamic_axes = {'input': {1: 'len_sound'}}
+    else:
+        dynamic_axes = None
     print("Exporting model...")
-    torch.onnx.export(model, input_.cuda(), ONNX_FILE_PATH, input_names=['input'],
+    torch.onnx.export(model, input_.cuda()[..., 5000] , ONNX_FILE_PATH, input_names=['input'],
                       output_names=['output'], dynamic_axes=dynamic_axes, export_params=True)
 
     onnx_model = onnx.load(ONNX_FILE_PATH)
