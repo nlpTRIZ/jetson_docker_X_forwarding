@@ -62,7 +62,7 @@ elif task=='TensorRT':
     context.set_binding_shape(0, np.array((tokenizer(input_audio, 
                                          sampling_rate=16000, 
                                          return_tensors="pt").input_values).numpy()[... ,:MAX_INPUT_SIZE], dtype=np.float32, order='C').shape)
-    cuda_input, host_output, cuda_output = init_trt_buffers(engine, context, MAX_INPUT_SIZE)
+    cuda_input, host_output, cuda_output = init_trt_buffers(engine, context, MAX_INPUT_SIZE, dynamic)
     
     for _ in range(100):
         # preprocess input data
