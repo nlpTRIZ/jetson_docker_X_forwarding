@@ -8,7 +8,7 @@ import numpy as np
 
 TRT_LOGGER = trt.Logger(trt.Logger.INFO)
 
-def build_engine(onnx_file_path, engine_file_path, max_input_size):
+def build_engine(onnx_file_path, engine_file_path, max_input_size, dynamic):
     # initialize TensorRT engine and parse ONNX model
     builder = trt.Builder(TRT_LOGGER)
     explicit_batch = 1 << (int)(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)
@@ -26,11 +26,12 @@ def build_engine(onnx_file_path, engine_file_path, max_input_size):
         # If not, then mark the output using TensorRT API
         network.mark_output(last_layer.get_output(0))
     
-    # Config (add a profile to deal with dynamic shapes)
-    profile = builder.create_optimization_profile();
-    profile.set_shape("input", (1, 20000), (1, 50000), (1, max_input_size)) #min size, opt size, max size
     config = builder.create_builder_config()
-    config.add_optimization_profile(profile)
+    if dynamic:
+        # Config (add a profile to deal with dynamic shapes)
+        profile = builder.create_optimization_profile();
+        profile.set_shape("input", (1, 20000), (1, 50000), (1, max_input_size)) #min size, opt size, max size
+        config.add_optimization_profile(profile)
     config.max_workspace_size = 1 << 30 #2**28 bits
     config.set_flag(trt.BuilderFlag.FP16)
     builder.max_batch_size = 1
