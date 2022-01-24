@@ -44,7 +44,7 @@ transformers 4.15.0
 `sudo apt update`\
 `sudo apt install socat`
 ### 11) Make nvidia the default docker runtime
-`sudo vim /etc/docker/daemon.json`\
+`sudo vim /etc/docker/daemon.json`
 ```bash
 {
     "default-runtime": "nvidia",
@@ -57,14 +57,14 @@ transformers 4.15.0
 }
 ``` 
 `sudo systemctl restart docker`
-### 11) Reboot
+### 12) Reboot
 `sudo reboot`
-### 12) Build image (replace name_image with a proper name)
+### 13) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
 Python modules can be added in requirements.txt to install them (check that they are not already there).\
 `cd Desktop/jetson_docker_X_forwarding`\
 `docker build -t name_image .`
-### 13) Load run function
+### 14) Load run function
 To permanently set the containers starting command (`drun`) with proper options:\
 `. install.sh`\
 To temporarly set the command:\
