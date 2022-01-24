@@ -22,7 +22,7 @@ simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0\
 netron 5.5.4\
-torch2trt
+torch2trt 0.3.0
 
 # Installation
 ### 1) Flash jetson with Jetpack 4.6, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
