@@ -4,10 +4,12 @@ import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import onnx
 import numpy as np
+from torch2trt import torch2trt
+from torch2trt import TRTModule
 
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
-task='TensorRT'
+task='serialize'
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 MAX_INPUT_SIZE = 50000
@@ -30,8 +32,35 @@ if task=='no TensorRT':
         predicted_ids = torch.argmax(logits, dim=-1)
         transcription = tokenizer.batch_decode(predicted_ids)[0]
         print(transcription)
+
+elif task=='serialize':
+    model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
+    model.eval().cuda()
+    # create example data
+    dummy_input = torch.ones((1, 100000)).float().cuda()
+    # convert to TensorRT feeding sample data as input
+    model_trt = torch2trt(model, [dummy_input], fp16_mode=True)
+    torch.save(model_trt.state_dict(), '../../models/wav2vec.trt')
     
-elif task=='save':
+elif task=='TensorRT': 
+    model = TRTModule()
+    model.load_state_dict(torch.load('../../models/wav2vec.trt'))
+    tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
+    
+    file_name = '../../data/Hello.wav'
+    input_audio, _ = librosa.load(file_name, sr=16000)
+    # boucle pour tous les traitements
+    for _ in range(100):
+        input_ = tokenizer(input_audio, sampling_rate=16000, return_tensors="pt").input_values
+        start = time.time()
+        logits = model(input_.cuda()).logits.cpu() #on envoit les données sur gpu puis on transfère les résultats au cpu
+        end = time.time()
+        print(f"Inference: {end-start} sec.")
+        predicted_ids = torch.argmax(logits, dim=-1)
+        transcription = tokenizer.batch_decode(predicted_ids)[0]
+        print(transcription)
+    
+'''elif task=='save':
     # Saving model
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
@@ -77,4 +106,4 @@ elif task=='TensorRT':
         output_data = torch.Tensor(host_output).view(len(host_input), -1, 32)
         predicted_ids=torch.argmax(output_data, dim=-1)
         transcription = tokenizer.batch_decode(predicted_ids)[0]
-        print(transcription)
+        print(transcription)'''

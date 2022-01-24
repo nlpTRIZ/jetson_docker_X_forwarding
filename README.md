@@ -57,14 +57,20 @@ transformers 4.15.0
 }
 ``` 
 `sudo systemctl restart docker`
-### 12) Reboot
+### 12) Add swap
+`sudo fallocate -l 6G /var/swapfile`\
+`sudo chmod 600 /var/swapfile`\
+`sudo mkswap /var/swapfile`\
+`sudo swapon /var/swapfile`\
+`sudo bash -c 'echo "/var/swapfile swap swap defaults 0 0" >> /etc/fstab'`
+### 13) Reboot
 `sudo reboot`
-### 13) Build image (replace name_image with a proper name)
+### 14) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
 Python modules can be added in requirements.txt to install them (check that they are not already there).\
 `cd Desktop/jetson_docker_X_forwarding`\
 `docker build -t name_image .`
-### 14) Load run function
+### 15) Load run function
 To permanently set the containers starting command (`drun`) with proper options:\
 `. install.sh`\
 To temporarly set the command:\
