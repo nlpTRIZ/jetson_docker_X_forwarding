@@ -14,7 +14,7 @@ DYNAMIC_SIZES = False
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 FILENAME = '../../data/Open_test.wav'
-MAX_INPUT_SIZE = 150000
+MAX_INPUT_SIZE = 50000
 
 if task=='no TensorRT':
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
@@ -24,7 +24,7 @@ if task=='no TensorRT':
     
     input_audio, _ = librosa.load(FILENAME, sr=16000)
     # boucle pour tous les traitements
-    for _ in range(1):
+    for _ in range(100):
         input_ = tokenizer(input_audio, sampling_rate=16000, return_tensors="pt").input_values[... ,:MAX_INPUT_SIZE]
         start = time.time()
         logits = model(input_.cuda()).logits.cpu() #on envoit les données sur gpu puis on transfère les résultats au cpu
