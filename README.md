@@ -20,7 +20,7 @@ Jetson.GPIO 2.0.17\
 pyaudio 0.2.11\
 simpleaudio 1.0.4\
 librosa 0.8.1\
-transformers 4.15.0
+transformers 4.15.0\
 netron 5.5.4
 
 # Installation
