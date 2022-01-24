@@ -70,7 +70,6 @@ def init_trt_buffers(engine, context, max_input_size):
             device_input = cuda.mem_alloc(input_size)
         else:  # and one output
             # create page-locked memory buffers (i.e. won't be swapped to disk)
-            print(context.get_binding_shape(1))
             host_output = cuda.pagelocked_empty(trt.volume(context.get_binding_shape(1)) * engine.max_batch_size, dtype=np.float32)
             device_output = cuda.mem_alloc(host_output.nbytes)
     return device_input, host_output, device_output
