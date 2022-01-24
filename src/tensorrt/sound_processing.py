@@ -54,7 +54,7 @@ if task=='no TensorRT':
 
 elif task=='TensorRT': 
     # initialize TensorRT engine
-    engine = load_engine(ENGINE_FILE_PATH, ONNX_FILE_PATH)
+    engine = load_engine(ENGINE_FILE_PATH, ONNX_FILE_PATH, dynamic)
 
     input_audio, _ = librosa.load(FILENAME, sr=16000)
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
@@ -62,7 +62,7 @@ elif task=='TensorRT':
     context.set_binding_shape(0, np.array((tokenizer(input_audio, 
                                          sampling_rate=16000, 
                                          return_tensors="pt").input_values).numpy()[... ,:MAX_INPUT_SIZE], dtype=np.float32, order='C').shape)
-    cuda_input, host_output, cuda_output = init_trt_buffers(engine, context, MAX_INPUT_SIZE, dynamic)
+    cuda_input, host_output, cuda_output = init_trt_buffers(engine, context, MAX_INPUT_SIZE)
     
     for _ in range(100):
         # preprocess input data
