@@ -13,7 +13,7 @@ RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
     
 RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt \
     && cd torch2trt \
-    && python3 setup.py install --plugins \
+    && python3 setup.py install \
     && cd .. \
     && rm -r torch2trt
 
