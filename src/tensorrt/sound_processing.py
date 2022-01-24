@@ -10,7 +10,7 @@ from torch2trt import TRTModule
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
 task='no TensorRT'
-dynamic = False
+DYNAMIC_SIZES = False
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 FILENAME = '../../data/Open_test.wav'
@@ -36,7 +36,7 @@ if task=='no TensorRT':
 
     # Saving model
     # indicates that the dimension 1 of input can vary
-    if dynamic:
+    if DYNAMIC_SIZES:
         dynamic_axes = {'input': {1: 'len_sound'}}
     else:
         dynamic_axes = None
