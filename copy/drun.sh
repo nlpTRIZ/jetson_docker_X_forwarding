@@ -8,19 +8,25 @@ drun () {
 	fi
 	
 	# Prepare target env
-	CONTAINER_DISPLAY=0
 	CONTAINER_HOSTNAME="root"
 	
 	# Find open port for jupyterlab
 	PORT=8888
+    PORT_NET=8888
 	quit=0
-	while [ "$quit" -ne 1 ]; do
-		netstat -a | grep $PORT >> /dev/null
+    inc=0
+	while [ "$quit" -ne 2 ]; do
+		netstat -a | grep $(($PORT + $inc)) >> /dev/null
 		if [ $? -gt 0 ]; then
-			quit=1
+			quit=`expr $quit + 1`
+            if [ "$quit" -eq 1 ]; then
+                PORT=$(($PORT + $inc))
+                CONTAINER_DISPLAY=$inc
+            else
+                PORT_NET=$(($PORT_NET + $inc))
+            fi
 		else
-			PORT=`expr $PORT + 1`
-			CONTAINER_DISPLAY=`expr $CONTAINER_DISPLAY + 1`
+            inc=`expr $inc + 1`
 		fi
 	done
 	
@@ -55,6 +61,7 @@ drun () {
 	  -e DISPLAY=:${CONTAINER_DISPLAY} \
 	  -e XAUTHORITY=/tmp/.Xauthority \
 	  -e JPORT=${PORT} \
+      -e NPORT=${PORT_NET} \
 	  --device /dev/snd \
 	  --device /dev/bus/usb \
 	  --cap-add SYS_PTRACE \
@@ -64,6 +71,7 @@ drun () {
 	  -v /tmp/argus_socket:/tmp/argus_socket \
 	  -v ${PWD}:/app \
 	  -p $PORT:8888 \
+      -p $PORT_NET:8080 \
 	  --privileged \
 	  --hostname ${CONTAINER_HOSTNAME} \
 	  $1

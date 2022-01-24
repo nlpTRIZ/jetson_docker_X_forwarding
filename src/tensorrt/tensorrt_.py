@@ -29,6 +29,7 @@ def build_engine(onnx_file_path, engine_file_path, max_input_size):
     # Config (add a profile to deal with dynamic shapes)
     profile = builder.create_optimization_profile();
     profile.set_shape("input", (1, 20000), (1, 50000), (1, max_input_size)) #min size, opt size, max size
+    profile.set_shape("output", (1, 20), (1, 200), (1, 500)) #min size, opt size, max size
     config = builder.create_builder_config()
     config.add_optimization_profile(profile)
     config.max_workspace_size = 1 << 28 #2**28 bits
@@ -70,6 +71,7 @@ def init_trt_buffers(engine, context, max_input_size):
             device_input = cuda.mem_alloc(input_size)
         else:  # and one output
             output_shape = engine.get_binding_shape(binding)
+            print("net output_shape", output_shape)
             # create page-locked memory buffers (i.e. won't be swapped to disk)
             host_output = cuda.pagelocked_empty(trt.volume(output_shape) * engine.max_batch_size, dtype=np.float32)
             device_output = cuda.mem_alloc(host_output.nbytes)

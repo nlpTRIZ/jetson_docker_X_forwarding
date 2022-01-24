@@ -13,4 +13,5 @@ RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
 
 COPY ./copy/gpio_pin_data.py /usr/local/lib/python3.6/dist-packages/Jetson/GPIO/gpio_pin_data.py
 COPY ./copy/run.sh /usr/
-CMD /bin/bash /usr/run.sh ${JPORT}
+
+CMD /bin/bash /usr/run.sh ${JPORT} ${NPORT}

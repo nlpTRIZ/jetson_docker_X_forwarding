@@ -7,9 +7,9 @@ import numpy as np
 
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
-task='TensorRT'
-ENGINE_FILE_PATH = '../models/wav2vec.trt'
-ONNX_FILE_PATH = '../models/wav2vec.onnx'
+task='serialize'
+ENGINE_FILE_PATH = '../../models/wav2vec.trt'
+ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 MAX_INPUT_SIZE = 50000
 
 if task=='no TensorRT':
@@ -18,7 +18,7 @@ if task=='no TensorRT':
     model.eval()
     model.cuda()
     
-    file_name = '../data/Hello.wav'
+    file_name = '../../data/Hello.wav'
     input_audio, _ = librosa.load(file_name, sr=16000)
     # boucle pour tous les traitements
     for _ in range(100):
@@ -36,11 +36,11 @@ elif task=='save':
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
     model.eval()
-    file_name = '../data/Hello.wav'
+    file_name = '../../data/Hello.wav'
     input_audio, _ = librosa.load(file_name, sr=16000)
     dummy_input = tokenizer(input_audio, sampling_rate=16000, return_tensors="pt").input_values
     # indicates that the dimension 1 of input can vary
-    dynamic_axes = {'input': {1: 'len_sound'}}
+    dynamic_axes = {'input': {1: 'len_sound'},'output': {1: 'num_letters'}}
     torch.onnx.export(model, dummy_input, ONNX_FILE_PATH, input_names=['input'],
                       output_names=['output'], dynamic_axes=dynamic_axes, export_params=True)
 
@@ -55,7 +55,7 @@ elif task=='TensorRT':
     # initialize TensorRT engine
     engine = load_engine(ENGINE_FILE_PATH, ONNX_FILE_PATH)
 
-    file_name = '../data/Hello.wav'
+    file_name = '../../data/Hello.wav'
     input_audio, _ = librosa.load(file_name, sr=16000)
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
     context = engine.create_execution_context()
