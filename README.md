@@ -43,6 +43,20 @@ transformers 4.15.0
 ### 10) Install socat for socket management
 `sudo apt update`\
 `sudo apt install socat`
+### 11) Make nvidia the default docker runtime
+`sudo vim /etc/docker/daemon.json`\
+```bash
+{
+    "default-runtime": "nvidia",
+    "runtimes": {
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}
+``` 
+`sudo systemctl restart docker`
 ### 11) Reboot
 `sudo reboot`
 ### 12) Build image (replace name_image with a proper name)

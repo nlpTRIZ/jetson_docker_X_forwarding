@@ -7,7 +7,7 @@ import numpy as np
 
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
-task='serialize'
+task='TensorRT'
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 MAX_INPUT_SIZE = 50000

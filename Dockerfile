@@ -10,6 +10,13 @@ RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
     && apt-get install -y portaudio19-dev \
     && pip3 install setuptools_rust \
     && pip3 install -r requirements.txt
+    
+RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt \
+    && cd torch2trt \
+    && pip3 list \ 
+    && python3 setup.py install --plugins \
+    && cd .. \
+    && rm -r torch2trt
 
 COPY ./copy/gpio_pin_data.py /usr/local/lib/python3.6/dist-packages/Jetson/GPIO/gpio_pin_data.py
 COPY ./copy/run.sh /usr/
