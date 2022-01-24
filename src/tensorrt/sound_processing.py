@@ -9,14 +9,14 @@ from torch2trt import TRTModule
 
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
-task='TensorRT' # run first with no TensoRT to export model
+task='no TensorRT' # run first with no TensoRT to export model
 DYNAMIC_SIZES = False
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 FILENAME = '../../data/Open_test.wav'
-MAX_INPUT_SIZE = 50000
+MAX_INPUT_SIZE = 100000
 
-if task=='no TensorRT':
+if task == 'no TensorRT':
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
     model.eval()
@@ -24,7 +24,7 @@ if task=='no TensorRT':
     
     input_audio, _ = librosa.load(FILENAME, sr=16000)
     # boucle pour tous les traitements
-    for _ in range(1):
+    for _ in range(10):
         input_ = tokenizer(input_audio, sampling_rate=16000, return_tensors="pt").input_values[... ,:MAX_INPUT_SIZE]
         start = time.time()
         logits = model(input_.cuda()).logits.cpu() #on envoit les données sur gpu puis on transfère les résultats au cpu
@@ -53,8 +53,8 @@ if task=='no TensorRT':
     print("Serializing model...")
     build_engine(ONNX_FILE_PATH, ENGINE_FILE_PATH, MAX_INPUT_SIZE, DYNAMIC_SIZES)
     print("Done.")
-
-elif task=='TensorRT': 
+    
+elif task == 'TensorRT': 
     # initialize TensorRT engine
     engine = load_engine(ENGINE_FILE_PATH, ONNX_FILE_PATH)
 
@@ -66,7 +66,7 @@ elif task=='TensorRT':
                                          return_tensors="pt").input_values).numpy()[... ,:MAX_INPUT_SIZE], dtype=np.float32, order='C').shape)
     cuda_input, host_output, cuda_output = init_trt_buffers(engine, context, MAX_INPUT_SIZE)
     
-    for _ in range(100):
+    for _ in range(10):
         # preprocess input data
         host_input = np.array((tokenizer(input_audio, 
                                          sampling_rate=16000, 
