@@ -4,11 +4,10 @@ import torch
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import onnx
 import numpy as np
-import common
 
 from tensorrt_ import build_engine, load_engine, infer_with_trt, init_trt_buffers
 
-task='serialize'
+task='TensorRT'
 ENGINE_FILE_PATH = '../models/wav2vec.trt'
 ONNX_FILE_PATH = '../models/wav2vec.onnx'
 MAX_INPUT_SIZE = 50000
@@ -64,7 +63,9 @@ elif task=='TensorRT':
     
     for _ in range(100):
         # preprocess input data
-        host_input = np.array((tokenizer(input_audio, sampling_rate=16000, return_tensors="pt").input_values).numpy(), dtype=np.float32, order='C')
+        host_input = np.array((tokenizer(input_audio, 
+                                         sampling_rate=16000, 
+                                         return_tensors="pt").input_values).numpy(), dtype=np.float32, order='C')[:MAX_INPUT_SIZE]
 
         # run inference
         start = time.time()
