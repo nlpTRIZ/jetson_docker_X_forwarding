@@ -29,6 +29,9 @@ drun () {
 			inc=`expr $inc + 1`
 		fi
 	done
+	echo $PORT
+	echo $PORT_NET
+	echo $CONTAINER_DISPLAY
 	
 	# Create a directory for the socket
 	mkdir -p /tmp/display/socket
