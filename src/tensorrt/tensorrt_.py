@@ -33,7 +33,7 @@ def build_engine(onnx_file_path, engine_file_path, max_input_size, dynamic):
         profile.set_shape("input", (1, 20000), (1, 50000), (1, max_input_size)) #min size, opt size, max size
         config.add_optimization_profile(profile)
     config.max_workspace_size = 1 << 30 #2**28 bits
-    config.set_flag(trt.BuilderFlag.INT8)
+    config.set_flag(trt.BuilderFlag.FP16)
     builder.max_batch_size = 1
     
     # generate TensorRT engine optimized for the target platform
