@@ -25,8 +25,8 @@ drun () {
 			else
 				PORT_NET=$(($PORT_NET + $inc))
 			fi
-		    inc=`expr $inc + 1`
 		fi
+		inc=`expr $inc + 1`
 	done
 	
 	# Create a directory for the socket
