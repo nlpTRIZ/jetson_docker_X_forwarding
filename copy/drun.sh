@@ -12,9 +12,9 @@ drun () {
 	
 	# Find open port for jupyterlab
 	PORT=8888
-    	PORT_NET=8888
+	PORT_NET=8888
 	quit=0
-    	inc=0
+	inc=0
 	while [ "$quit" -ne 2 ]; do
 		netstat -a | grep $(($PORT + $inc)) >> /dev/null
 		if [ $? -gt 0 ]; then
@@ -26,7 +26,7 @@ drun () {
 				PORT_NET=$(($PORT_NET + $inc))
 			fi
 		else
-            		inc=`expr $inc + 1`
+			inc=`expr $inc + 1`
 		fi
 	done
 	
