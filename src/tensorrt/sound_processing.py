@@ -14,7 +14,7 @@ DYNAMIC_SIZES = False
 ENGINE_FILE_PATH = '../../models/wav2vec.trt'
 ONNX_FILE_PATH = '../../models/wav2vec.onnx'
 FILENAME = '../../data/Open_test.wav'
-MAX_INPUT_SIZE = 100000
+MAX_INPUT_SIZE = 75000
 
 if task == 'no TensorRT':
     tokenizer = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
