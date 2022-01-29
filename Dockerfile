@@ -16,6 +16,10 @@ RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt.git \
     && python3 setup.py install --plugins \
     && cd .. \
     && rm -r torch2trt
+    
+RUN git clone https://github.com/NVIDIA-AI-IOT/jetcam \
+    && cd jetcam \
+    && python3 setup.py install
 
 COPY ./copy/gpio_pin_data.py /usr/local/lib/python3.6/dist-packages/Jetson/GPIO/gpio_pin_data.py
 COPY ./copy/run.sh /usr/
