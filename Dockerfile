@@ -1,6 +1,6 @@
 FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 
-WORKDIR /root/install
+WORKDIR /menu/install
 COPY ./requirements.txt .
 
 RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
@@ -24,11 +24,11 @@ RUN git clone https://github.com/NVIDIA-AI-IOT/trt_pose \
     && cd trt_pose \
     && python3 setup.py install
 
-WORKDIR /root/app
+WORKDIR /menu/app
 
 COPY ./copy/gpio_pin_data.py /usr/local/lib/python3.6/dist-packages/Jetson/GPIO/gpio_pin_data.py
 COPY ./copy/run.sh /usr/
 
-WORKDIR /root
+WORKDIR /menu
 
 CMD /bin/bash /usr/run.sh ${JPORT} ${NPORT}
