@@ -1,4 +1,4 @@
-# Docker with X forwarding for Jetson Nano
+# Docker container with X forwarding for Jetson Nano
 # Image Processing, Sound Processing, ML, GPIO control
 Feel free to modify requirements.txt to install more libraries.
 
@@ -60,7 +60,7 @@ torch2trt 0.3.0
 ``` 
 `sudo systemctl restart docker`
 ### 12) Add swap
-`sudo fallocate -l 6G /var/swapfile`\
+`sudo fallocate -l 4G /var/swapfile`\
 `sudo chmod 600 /var/swapfile`\
 `sudo mkswap /var/swapfile`\
 `sudo swapon /var/swapfile`\
