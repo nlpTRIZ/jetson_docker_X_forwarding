@@ -19,7 +19,7 @@ RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt.git \
     
 RUN git clone https://github.com/NVIDIA-AI-IOT/jetcam \
     && cd jetcam \
-    && python3 setup.py install
+    && python3 setup.py install \
     && rm -r jetcam
     
 RUN git clone https://github.com/NVIDIA-AI-IOT/trt_pose \
