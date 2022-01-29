@@ -68,7 +68,7 @@ drun () {
 	  -v /tmp/display/socket:/tmp/.X11-unix \
 	  -v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
 	  -v /tmp/argus_socket:/tmp/argus_socket \
-	  -v ${PWD}:/app \
+	  -v ${PWD}:/root/app \
 	  -p $PORT:8888 \
 	  -p $PORT_NET:8080 \
 	  --privileged \
