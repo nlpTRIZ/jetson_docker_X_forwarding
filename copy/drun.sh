@@ -44,7 +44,7 @@ drun () {
 	
 	# Proxy with the :0 DISPLAY
 	sudo rm -rf /tmp/display/socket/X${CONTAINER_DISPLAY} || true
-	PROCESSES=$(ps aux | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | head -n -1 | awk '{print $2}')
+	PROCESSES=$(pgrep socat -a | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | awk '{print $1}')
 	if [ ! -z "$PROCESSES" ]
 	then
 		echo "Cleaning old sockets..."
