@@ -62,5 +62,37 @@ def show_camera():
         print("Unable to open camera")
 
 
-if __name__ == "__main__":
-    show_camera()
+#if __name__ == "__main__":
+#    show_camera()
+
+import jetcam
+
+# from jetcam.usb_camera import USBCamera
+from jetcam.csi_camera import CSICamera
+from jetcam.utils import bgr8_to_jpeg
+
+# camera = USBCamera(width=WIDTH, height=HEIGHT, capture_fps=30)
+WIDTH=1080
+HEIGHT=720
+camera = CSICamera(width=WIDTH, height=HEIGHT, capture_fps=30)
+
+camera.running = True
+
+window_handle = cv2.namedWindow("CSI Camera", cv2.WINDOW_AUTOSIZE)
+
+global image
+def execute(change):
+    image = change['new']
+
+execute({'new': camera.value})
+
+camera.observe(execute, names='value')
+
+while True:
+    cv2.imshow("CSI Camera", image)
+    kk = cv2.waitKey(1)
+    if kk == ord('q'):  # exit with key q
+        break
+
+camera.unobserve_all()
+cv2.destroyAllWindows()
