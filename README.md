@@ -27,7 +27,7 @@ trt-pose 0.0.1\
 jetcam 0.0.0
 
 # Installation
-### 1) Flash jetson with Jetpack 4.6, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
+### 1) Flash jetson with Jetpack 4.6.1, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
 ### 2) Connect sensors before boot
 ### 3) Clone official repositery for gpio pins control
 `cd Desktop`\
