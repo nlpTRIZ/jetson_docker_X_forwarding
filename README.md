@@ -79,6 +79,8 @@ To permanently set the containers starting command (`drun`) with proper options:
 `. install.sh`\
 To temporarly set the command:\
 `. copy/drun.sh`
+### 16) Set CPU, GPU clocks to maximum
+`sudo /usr/bin/jetson_clocks --fan`
 # Run
 Once an image is built, no need to rebuid it every time, just start a container:\
 (don't forget to connect with -X option: ssh -X user@ip)\
