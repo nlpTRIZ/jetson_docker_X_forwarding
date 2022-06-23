@@ -3,7 +3,6 @@
 Feel free to modify requirements.txt to install more libraries.
 
 **Installed libraries:**\
-TensorFlow 1.15.5 (base image)\
 PyTorch v1.9.0 (base image) \
 torchvision v0.10.0 (base image)\
 torchaudio v0.9.0 (base image) \
@@ -16,6 +15,7 @@ pandas 1.1.5 (base image)\
 scipy 1.5.4 (base image)\
 scikit-learn 0.23.2 (base image)\
 JupyterLab 2.2.9 (base image)\
+TensorFlow 2.7.0\
 Jetson.GPIO 2.0.17\
 pyaudio 0.2.11\
 simpleaudio 1.0.4\
