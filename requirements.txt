@@ -5,3 +5,4 @@ librosa==0.8.1
 transformers==4.15.0
 netron==5.8.8
 pycocotools==2.0.4
+keras==2.7.0rc2
