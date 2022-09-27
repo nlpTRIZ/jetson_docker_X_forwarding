@@ -83,6 +83,6 @@ To temporarly set the command:\
 # Run
 Once an image is built, no need to rebuid it every time, just start a container:\
 (don't forget to connect with -X option: ssh -X user@ip)\
-`drun name_image`
+`drun -c name_image`
 ### Optional: Set CPU, GPU clocks to maximum and start fan if any (not persistent across boots)
 `sudo jetson_clocks --fan`
