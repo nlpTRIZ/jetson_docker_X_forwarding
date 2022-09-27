@@ -24,7 +24,8 @@ transformers 4.15.0\
 netron 5.5.4\
 torch2trt 0.3.0\
 trt-pose 0.0.1\
-jetcam 0.0.0
+jetcam 0.0.0\
+jetson-inference
 
 # Installation
 ### 1) Flash jetson with Jetpack 4.6.1 https://developer.nvidia.com/jetson-nano-sd-card-image, no upgrade, headless setup https://www.jetsonhacks.com/2019/08/21/jetson-nano-headless-setup/
