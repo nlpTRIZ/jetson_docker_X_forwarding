@@ -1,59 +1,57 @@
 # Bash function enabling access to sensors and X forwarding when starting containers
 drun () {
+    # Stop if no argument for image name given
+    if [[ $# -eq 0 ]] ; then
+	echo 'No image name provided. Use "docker images" to find the right one.'
+	return
+    fi
 	
-	# Stop if no argument for image name given
-	if [[ $# -eq 0 ]] ; then
-	    echo 'No image name provided. Use "docker images" to find the right one.'
-	    return
+    # Prepare target env
+    CONTAINER_HOSTNAME="root"
+	
+    # Find open port for jupyterlab and netron
+    PORT=8888
+    PORT_NET=8888
+    quit=0
+    inc=0
+    while [ "$quit" -ne 2 ]; do
+    	netstat -a | grep $(($PORT + $inc)) >> /dev/null
+        if [ $? -gt 0 ]; then
+	    quit=`expr $quit + 1`
+	    if [ "$quit" -eq 1 ]; then
+	        PORT=$(($PORT + $inc))
+		CONTAINER_DISPLAY=$inc
+	    else
+		PORT_NET=$(($PORT_NET + $inc))
+	    fi
 	fi
-	
-	# Prepare target env
-	CONTAINER_HOSTNAME="root"
-	
-	# Find open port for jupyterlab and netron
-	PORT=8888
-	PORT_NET=8888
-	quit=0
-	inc=0
-	while [ "$quit" -ne 2 ]; do
-		netstat -a | grep $(($PORT + $inc)) >> /dev/null
-		if [ $? -gt 0 ]; then
-			quit=`expr $quit + 1`
-			if [ "$quit" -eq 1 ]; then
-				PORT=$(($PORT + $inc))
-				CONTAINER_DISPLAY=$inc
-			else
-				PORT_NET=$(($PORT_NET + $inc))
-			fi
-		fi
-		inc=`expr $inc + 1`
-	done
+	inc=`expr $inc + 1`
+    done
     
-	# Create a directory for the socket
-	mkdir -p /tmp/display/socket
-	touch /tmp/display/Xauthority${CONTAINER_DISPLAY}
+    # Create a directory for the socket
+    mkdir -p /tmp/display/socket
+    touch /tmp/display/Xauthority${CONTAINER_DISPLAY}
 
-	# Get the DISPLAY slot
-	DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
+    # Get the DISPLAY slot
+    DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
 
-	# Extract current authentication cookie
-	AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
+    # Extract current authentication cookie
+    AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
 
-	# Create the new X Authority file
-	xauth -f /tmp/display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
+    # Create the new X Authority file
+    xauth -f /tmp/display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
 
-	# Proxy with the :0 DISPLAY
-	sudo rm -rf /tmp/display/socket/X${CONTAINER_DISPLAY} || true
-	PROCESSES=$(pgrep socat -a | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | awk '{print $1}')
-	if [ ! -z "$PROCESSES" ]
-	then
-		echo "Cleaning old sockets..."
-		sudo kill ${PROCESSES}
-	fi
-	echo "Creating new socket..."
-	socat UNIX-LISTEN:/tmp/display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
+    # Proxy with the :0 DISPLAY
+    sudo rm -rf /tmp/display/socket/X${CONTAINER_DISPLAY} || true
+    PROCESSES=$(pgrep socat -a | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | awk '{print $1}')
+    if [ ! -z "$PROCESSES" ]; then
+        echo "Cleaning old sockets..."
+	sudo kill ${PROCESSES}
+    fi
+    echo "Creating new socket..."
+    socat UNIX-LISTEN:/tmp/display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
 
-	# generate mount commands for jetson-inference models
+    # generate mount commands for jetson-inference models
     NETWORKS_DIR="data/networks"
     CLASSIFY_DIR="python/training/classification"
     DETECTION_DIR="python/training/detection/ssd"
@@ -148,17 +146,17 @@ drun () {
         echo Executing $USER_COMMAND...
     fi
 
-	# check for V4L2 devices
-        V4L2_DEVICES=" "
-        for i in {0..9}
-            do
-                if [ -a "/dev/video$i" ]; then
-                    V4L2_DEVICES="$V4L2_DEVICES --device /dev/video$i "
-                fi
-            done
+    # check for V4L2 devices
+    V4L2_DEVICES=" "
+    for i in {0..9}
+        do
+           if [ -a "/dev/video$i" ]; then
+               V4L2_DEVICES="$V4L2_DEVICES --device /dev/video$i "
+           fi
+        done
 
     # Launch the container
-	docker run -it --rm \
+    docker run -it --rm \
         --runtime nvidia \
         --gpus all \
         -e DISPLAY=:${CONTAINER_DISPLAY} \
