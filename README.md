@@ -102,5 +102,5 @@ menu
 ```
 You can find the documentation and examples in resources directory (directly copied from the installed libraries). \
 **Note that in order to avoid errors when displaying the outputs of jetson-inference's examples, some minor modifications have to be made (basically just adding cv2.imshow() instead of regular output) as shown in src/camera/depth_estimation/depthnet.py (modified from resources/jetson-inference/python/examples/depthnet.py)** \
-**Streaming data can also be achieved using the example in src/stream (to send video (processed or not) to another device).**
+**Streaming data can also be achieved using the example in src/stream (to send video (processed or not) to another device).**\
 **Displaying a stream directly from the container (cv2.imshow for example) is simple but very slow. For production use, consider streaming the data to the monitoring device.**
