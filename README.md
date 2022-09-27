@@ -86,3 +86,19 @@ Once an image is built, no need to rebuid it every time, just start a container:
 `drun name_image`
 ### Optional: Set CPU, GPU clocks to maximum and start fan if any (not persistent across boots)
 `sudo jetson_clocks --fan`
+
+# Notes
+Container structure: \
+```
+menu  
+│
+└───app = working directory
+│   
+└───resources
+    │   jetcam
+    │   jetson-inference
+    │   torch2trt
+    │   trt_pose
+```
+You can find the documentation and examples in resources directory (directly copied from the installed libraries). \
+Note that displaying jetson-inference outputs need some modifications as shown in src/camera/depth_estimation (modified from resources/jetson-inference/python/examples/depthnet.py)
