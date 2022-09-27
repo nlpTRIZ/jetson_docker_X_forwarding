@@ -60,7 +60,6 @@ buffers = depthBuffers(opt)
 
 # create video sources & outputs
 input = videoSource(opt.input_URI, argv=sys.argv)
-#output = videoOutput(opt.output_URI, argv=sys.argv)
 # Create window
 cv2.namedWindow('Depth', cv2.WINDOW_AUTOSIZE)
 
