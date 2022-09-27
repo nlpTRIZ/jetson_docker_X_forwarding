@@ -101,4 +101,4 @@ menu
     │   trt_pose
 ```
 You can find the documentation and examples in resources directory (directly copied from the installed libraries). \
-**Note that in order errors when displaying jetson-inference outputs, some minor modifications have to be made (basically just adding cv2.imshow() instead of regular output) as shown in src/camera/depth_estimation (modified from resources/jetson-inference/python/examples/depthnet.py)**
+**Note that in order to avoid errors when displaying jetson-inference outputs, some minor modifications have to be made (basically just adding cv2.imshow() instead of regular output) as shown in src/camera/depth_estimation (modified from resources/jetson-inference/python/examples/depthnet.py)**
