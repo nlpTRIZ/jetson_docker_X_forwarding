@@ -88,7 +88,7 @@ Once an image is built, no need to rebuid it every time, just start a container:
 `sudo jetson_clocks --fan`
 
 # Notes
-Container structure: \
+Container structure:
 ```
 menu  
 │
