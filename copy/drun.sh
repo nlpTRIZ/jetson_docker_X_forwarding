@@ -10,7 +10,7 @@ drun () {
 	# Prepare target env
 	CONTAINER_HOSTNAME="root"
 	
-	# Find open port for jupyterlab
+	# Find open port for jupyterlab and netron
 	PORT=8888
 	PORT_NET=8888
 	quit=0
@@ -28,20 +28,19 @@ drun () {
 		fi
 		inc=`expr $inc + 1`
 	done
-	
 	# Create a directory for the socket
 	mkdir -p /tmp/display/socket
 	touch /tmp/display/Xauthority${CONTAINER_DISPLAY}
-	
+
 	# Get the DISPLAY slot
 	DISPLAY_NUMBER=$(echo $DISPLAY | cut -d. -f1 | cut -d: -f2)
-	
+
 	# Extract current authentication cookie
 	AUTH_COOKIE=$(xauth list | grep "^$(hostname)/unix:${DISPLAY_NUMBER} " | awk '{print $3}')
-	
+
 	# Create the new X Authority file
 	xauth -f /tmp/display/Xauthority${CONTAINER_DISPLAY} add ${CONTAINER_HOSTNAME}/unix:${CONTAINER_DISPLAY} MIT-MAGIC-COOKIE-1 ${AUTH_COOKIE}
-	
+
 	# Proxy with the :0 DISPLAY
 	sudo rm -rf /tmp/display/socket/X${CONTAINER_DISPLAY} || true
 	PROCESSES=$(pgrep socat -a | grep /tmp/display/socket/X${CONTAINER_DISPLAY} | awk '{print $1}')
@@ -52,8 +51,38 @@ drun () {
 	fi
 	echo "Creating new socket..."
 	socat UNIX-LISTEN:/tmp/display/socket/X${CONTAINER_DISPLAY},fork TCP4:localhost:60${DISPLAY_NUMBER} &
-	
-	# Launch the container
+
+	# generate mount commands for jetson-inference models
+        NETWORKS_DIR="data/networks"
+        CLASSIFY_DIR="python/training/classification"
+        DETECTION_DIR="python/training/detection/ssd"
+        DOCKER_ROOT="/menu/resources/jetson-inference"
+        DATA_J="/data_jetson_inference"
+        sudo mkdir -p $DATA_J
+        sudo mkdir -p $DATA_J/$NETWORKS_DIR
+        sudo mkdir -p $DATA_J/$CLASSIFY_DIR
+        sudo mkdir -p $DATA_J/$DETECTION_DIR
+        sudo chmod -R 777 $DATA_J
+
+        DATA_VOLUME="\
+        --volume $DATA_J/data:$DOCKER_ROOT/data \
+        --volume $DATA_J/data_cls/data:$DOCKER_ROOT/$CLASSIFY_DIR/data \
+        --volume $DATA_J/data_cls/models:$DOCKER_ROOT/$CLASSIFY_DIR/models \
+        --volume $DATA_J/data_detect/data:$DOCKER_ROOT/$DETECTION_DIR/data \
+        --volume $DATA_J/data_detect/models:$DOCKER_ROOT/$DETECTION_DIR/models \
+	--volume $DATA_J/data_local:/usr/local/bin/networks"
+
+	# check for V4L2 devices
+        V4L2_DEVICES=" "
+
+        for i in {0..9}
+            do
+	        if [ -a "/dev/video$i" ]; then
+		    V4L2_DEVICES="$V4L2_DEVICES --device /dev/video$i "
+	        fi
+            done
+
+        # Launch the container
 	docker run -it --rm \
 	  --runtime nvidia \
 	  --gpus all \
@@ -68,10 +97,12 @@ drun () {
 	  -v /tmp/display/socket:/tmp/.X11-unix \
 	  -v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
 	  -v /tmp/argus_socket:/tmp/argus_socket \
+	  -v /etc/enctune.conf:/etc/enctune.conf \
 	  -v ${PWD}:/menu/app \
 	  -p $PORT:8888 \
 	  -p $PORT_NET:8080 \
 	  --privileged \
 	  --hostname ${CONTAINER_HOSTNAME} \
+	  $DATA_VOLUME $V4L2_DEVICES\
 	  $1
 }

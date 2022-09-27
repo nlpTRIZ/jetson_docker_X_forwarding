@@ -1,6 +1,6 @@
 FROM nvcr.io/nvidia/l4t-ml:r32.6.1-py3
 
-WORKDIR /menu/install
+WORKDIR /menu/resources
 COPY ./requirements.txt .
 
 RUN pip3 uninstall -y tensorflow \
@@ -19,6 +19,16 @@ RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
     && pip3 install setuptools_rust \
     && pip3 install -r requirements.txt \
     && rm install_rust.sh requirements.txt
+
+RUN git clone --recursive https://github.com/dusty-nv/jetson-inference \
+    && cd jetson-inference \
+    && sed -i 's/nvcaffe_parser/nvparsers/g' CMakeLists.txt \
+    && mkdir build \
+    && cd build \
+    && cmake -DENABLE_NVMM=off ../ \
+    && make -j$(nproc) \
+    && make install \
+    && ldconfig
     
 RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt.git \
     && cd torch2trt/scripts  \
