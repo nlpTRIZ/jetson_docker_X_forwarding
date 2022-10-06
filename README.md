@@ -106,4 +106,7 @@ You can find the documentation and examples in resources directory (directly cop
 **Displaying a stream directly from the container (cv2.imshow for example) is simple and paractical for debugging but very slow. For production use, consider streaming the data to the monitoring device.**
 
 # With Windows
-install https://mobaxterm.mobatek.net/ to connect to the jetson and enable X11 forwarding
+Install https://mobaxterm.mobatek.net/ and use it to connect to the jetson with -X option.
+
+# With Mac
+Type `DISPLAY=:0` and then connect to the jetson using -X option.
