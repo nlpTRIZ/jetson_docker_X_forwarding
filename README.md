@@ -21,7 +21,7 @@ pyaudio 0.2.11\
 simpleaudio 1.0.4\
 librosa 0.8.1\
 transformers 4.15.0\
-netron 5.5.4\
+netron 6.0.9\
 torch2trt 0.3.0\
 trt-pose 0.0.1\
 jetcam 0.0.0\
