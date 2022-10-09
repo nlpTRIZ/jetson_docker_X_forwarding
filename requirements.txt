@@ -3,6 +3,6 @@ pyaudio==0.2.11
 simpleaudio==1.0.4
 librosa==0.8.1
 transformers==4.15.0
-netron==6.0.7
 pycocotools==2.0.4
 keras==2.7.0rc2
+netron
