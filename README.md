@@ -1,5 +1,5 @@
-# Docker container with X forwarding for Jetson Nano
-# Image Processing, Sound Processing, ML, GPIO control
+# Jetson Nano: X forwarding
+## Image Processing, Sound Processing, ML, GPIO control
 Feel free to modify requirements.txt to install more libraries.
 
 **Installed libraries:**\
