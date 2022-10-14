@@ -105,8 +105,9 @@ menu
 - Most of the scripts are not supposed to be run on a headless system. In order to avoid errors when displaying the outputs of jetson-inference's examples, some minor modifications have to be made (basically just adding cv2.imshow() instead of regular output) as shown in src/camera/depth_estimation/depthnet.py (modified from resources/jetson-inference/python/examples/depthnet.py).
 - Displaying a stream directly from the container (cv2.imshow for example) is simple and practical for debugging but very slow. For production use, consider streaming the data to the monitoring device. Streaming a video can be achieved using the example in src/stream (to send video (processed or not) to another device).
 
-# With Windows
+## Make X forwarding work on Windows and Mac
+### With Windows
 Install https://mobaxterm.mobatek.net/ and use it to connect to the jetson with -X option.
 
-# With Mac
+### With Mac
 Type `DISPLAY=:0` and then connect to the jetson using -X option.
