@@ -26,6 +26,7 @@ import argparse
 
 import cv2
 from jetson_inference import depthNet
+import jetson_utils
 from jetson_utils import videoSource, videoOutput, logUsage, cudaOverlay, cudaDeviceSynchronize, cudaToNumpy
 
 from depthnet_utils import depthBuffers
@@ -59,7 +60,18 @@ net = depthNet(opt.network, sys.argv)
 buffers = depthBuffers(opt)
 
 # create video sources & outputs
-input = videoSource(opt.input_URI, argv=sys.argv)
+width  = 640     # 1640      # 1280
+height = 360      # 1232      # 720
+framerate = 50    # 30        # 60      # choose 30 or 60
+
+param_videoSource = []
+param_videoSource.append("--input-width=" + str(width))
+param_videoSource.append(f"--input-height=" + str(height))
+param_videoSource.append(f"--input-flip=vertical")
+param_videoSource.append(f"--input-rate=" +str(framerate))
+
+input = jetson_utils.videoSource('csi://0',   argv=param_videoSource )
+
 # Create window
 cv2.namedWindow('Depth', cv2.WINDOW_AUTOSIZE)
 
