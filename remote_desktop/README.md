@@ -10,4 +10,4 @@ Use Jetson nano IP adress as host with your username. \
 Set 1280x800 resolution. \
 Colors: 24bits \
 Performances: Modem \
-No bitmap caching \
+No bitmap caching
