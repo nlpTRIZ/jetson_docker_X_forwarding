@@ -60,7 +60,7 @@ drun () {
         	-v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority"
 
 	else
-		xhost + >> /dev/null
+		sudo xhost +si:localuser:root >> /dev/null
 		XFORWARD="\
 		-e DISPLAY=$DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix"
