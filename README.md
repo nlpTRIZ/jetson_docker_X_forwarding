@@ -113,3 +113,7 @@ Install https://mobaxterm.mobatek.net/ and use it to connect to the jetson with 
 
 ### With Mac
 Type `DISPLAY=:0` and then connect to the jetson using -X option.
+
+## Use Remote Desktop instead of X forwarding
+Instructions are given in remote_desktop directory to set up a remote desktop service.
+Client computer will be the jetson screen. Follow the instructions concerning the settings to optimize performance.
