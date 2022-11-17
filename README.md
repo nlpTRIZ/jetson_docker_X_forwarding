@@ -120,4 +120,4 @@ Client computer will be the screen of the jetson nano.
 ### Installation
 A bash script is given in remote_desktop directory to set up the remote desktop service.
 ### Settings
-Follow the instructions concerning the settings to optimize performance.
+Follow the instructions concerning the settings to optimize performance. You will need a fast internet connexion for it to work correctly.
