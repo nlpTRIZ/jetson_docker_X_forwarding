@@ -57,13 +57,14 @@ drun () {
 		-e XAUTHORITY=/tmp/.Xauthority \
 		-e DISPLAY=:${CONTAINER_DISPLAY} \
 		-v /tmp/display/socket:/tmp/.X11-unix \
-        	-v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority"
-
+        	-v /tmp/display/Xauthority${CONTAINER_DISPLAY}:/tmp/.Xauthority \
+		--privileged \
+		--hostname ${CONTAINER_HOSTNAME}"
 	else
 		sudo xhost +si:localuser:root >> /dev/null
 		XFORWARD="\
 		-e DISPLAY=$DISPLAY \
-		-v /tmp/.X11-unix:/tmp/.X11-unix"
+		-v /tmp/.X11-unix/:/tmp/.X11-unix"
 	fi
 
 	# generate mount commands for jetson-inference models
@@ -185,8 +186,6 @@ drun () {
 	-v ${PWD}:/menu/app \
 	-p $PORT:8888 \
 	-p $PORT_NET:8080 \
-	--privileged \
-	--hostname ${CONTAINER_HOSTNAME} \
 	$XFORWARD $DATA_VOLUME $USER_VOLUME $USER_PORT $V4L2_DEVICES\
 	$CONTAINER_IMAGE $USER_COMMAND
 }
