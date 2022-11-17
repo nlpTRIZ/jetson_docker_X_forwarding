@@ -61,6 +61,7 @@ drun () {
 
 	else
 		sudo xhost +si:localuser:root >> /dev/null
+		export DISPLAY=:0
 		XFORWARD="\
 		-e DISPLAY=$DISPLAY \
 		-v /tmp/.X11-unix:/tmp/.X11-unix"
