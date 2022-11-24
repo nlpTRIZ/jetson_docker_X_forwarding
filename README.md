@@ -112,7 +112,7 @@ menu
 Install https://mobaxterm.mobatek.net/ and use it to connect to the jetson with -X option.
 
 ### With Mac
-Type `DISPLAY=:0` and then connect to the jetson using -X option.
+Install https://www.xquartz.org/ and use it connect to the jetson with -X option.
 
 ## Use Remote Desktop instead of X forwarding
 ### Principle
