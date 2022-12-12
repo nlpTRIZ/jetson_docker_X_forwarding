@@ -45,10 +45,12 @@ jetson-inference
 `rm -rf jetson-gpio`
 ### 9) Add user to docker group
 `sudo usermod -a -G docker $USER`
-### 10) Install socat for socket management
+### 10) Add user to tty group
+`sudo usermod -a -G tty $USER`
+### 11) Install socat for socket management
 `sudo apt update`\
 `sudo apt install socat`
-### 11) Make nvidia the default docker runtime
+### 12) Make nvidia the default docker runtime
 `sudo vim /etc/docker/daemon.json`
 ```bash
 {
@@ -62,20 +64,20 @@ jetson-inference
 }
 ``` 
 `sudo systemctl restart docker`
-### 12) Add swap
+### 13) Add swap
 `sudo fallocate -l 4G /var/swapfile`\
 `sudo chmod 600 /var/swapfile`\
 `sudo mkswap /var/swapfile`\
 `sudo swapon /var/swapfile`\
 `sudo bash -c 'echo "/var/swapfile swap swap defaults 0 0" >> /etc/fstab'`
-### 13) Reboot
+### 14) Reboot
 `sudo reboot`
-### 14) Build image (replace name_image with a proper name)
+### 15) Build image (replace name_image with a proper name)
 Create the image of the desired environment from the official image of nvidia in which we execute the contents of Dockerfile.\
 Python modules can be added in requirements.txt to install them (check that they are not already there).\
 `cd Desktop/jetson_docker_X_forwarding`\
 `docker build -t name_image .`
-### 15) Load run function
+### 16) Load run function
 To permanently set the containers starting command (`drun`) with proper options:\
 `. install.sh`\
 To temporarly set the command:\
