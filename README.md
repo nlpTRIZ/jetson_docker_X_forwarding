@@ -45,8 +45,9 @@ jetson-inference
 `rm -rf jetson-gpio`
 ### 9) Add user to docker group
 `sudo usermod -a -G docker $USER`
-### 10) Add user to tty group
-`sudo usermod -a -G tty $USER`
+### 10) Add user to tty and dialout group
+`sudo usermod -a -G tty $USER`\
+`sudo usermod -a -G dialout $USER`
 ### 11) Install socat for socket management
 `sudo apt update`\
 `sudo apt install socat`
