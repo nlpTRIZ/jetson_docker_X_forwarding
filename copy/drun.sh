@@ -181,6 +181,7 @@ drun () {
 	--device /dev/bus/usb \
 	--cap-add SYS_PTRACE \
 	-v /sys:/sys \
+	-v /dev:/dev \
 	-v /tmp/argus_socket:/tmp/argus_socket \
 	-v /etc/enctune.conf:/etc/enctune.conf \
 	-v ${PWD}:/menu/app \
