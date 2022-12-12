@@ -17,9 +17,8 @@ RUN curl https://sh.rustup.rs -sSf > install_rust.sh \
     && apt-get update \
     && apt-get install -y portaudio19-dev \
     && pip3 install setuptools_rust \
-    && rm install_rust.sh
-   
-RUN pip3 install -r requirements.txt \
+    && rm install_rust.sh \
+    && pip3 install -r requirements.txt \
     && rm requirements.txt
 
 RUN git clone --recursive https://github.com/dusty-nv/jetson-inference \
